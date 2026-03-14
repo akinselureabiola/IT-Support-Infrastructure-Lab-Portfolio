@@ -1,70 +1,82 @@
-# 🖥 IT Support & Infrastructure Lab Portfolio
+# Portfolio Structure
 
-This repository contains structured, hands-on IT support labs designed to simulate real-world enterprise scenarios. Each lab follows a professional troubleshooting and documentation format aligned with ITIL-based incident management practices.
+This repository contains hands-on IT infrastructure labs simulating common operational tasks performed by IT Support Engineers, System Administrators, and Infrastructure Support teams.
 
-The goal of this portfolio is to demonstrate practical IT support capabilities in Active Directory, Windows troubleshooting, and structured ticket lifecycle management.
+The labs are organized into several infrastructure domains:
 
----
+### Active Directory
 
-## 🎯 Lab Objectives
+User and group management, permissions troubleshooting, and domain services.
 
-- Simulate real 1st and 2nd line support cases  
-- Demonstrate structured incident diagnosis and resolution  
-- Apply Active Directory user and group management  
-- Perform Windows troubleshooting and root cause analysis  
-- Document ticket lifecycle and escalation processes  
+Example labs:
 
----
-
-## 📂 Portfolio Structure
-
-### 1️⃣ Active Directory – Security Group Access
-
-Simulated user access issue caused by incorrect security group membership.
-
-**Includes:**
-- User lifecycle validation  
-- Security group and permission analysis  
-- Resolution steps  
-- Root cause documentation  
+* Security Group Access Troubleshooting
+* File Server Permission Investigation
 
 ---
 
-### 2️⃣ ITIL Process – Ticket Lifecycle Simulation
+### Linux Infrastructure
 
-Demonstrates structured incident handling including:
+Linux server deployment and integration with Windows Active Directory environments.
 
-- Incident logging  
-- Categorization and prioritization  
-- Escalation process  
-- SLA tracking  
-- Resolution and closure documentation  
+Example labs:
 
----
-
-### 3️⃣ Windows Troubleshooting – Slow Computer Case Study
-
-Structured diagnosis of a performance-related issue including:
-
-- High CPU usage analysis  
-- Background process conflicts  
-- Disk utilization review  
-- Event Viewer log inspection  
-- Remediation and validation steps  
+* Linux Server Active Directory Integration
+* DNS and Network Validation for Domain Communication
 
 ---
 
-## 🧠 Skills Demonstrated
+### Windows Infrastructure
 
-- Active Directory Administration  
-- Windows 10/11 Troubleshooting  
-- ITIL-Based Incident Management  
-- Root Cause Analysis  
-- SLA Documentation & Escalation  
-- Access Control & Permission Management  
+Configuration and troubleshooting of Windows-based systems within enterprise environments.
+
+Example labs:
+
+* File Server Management
+* NTFS Permission Troubleshooting
+* Shared Folder Access Investigation
 
 ---
 
-## 🚀 Continuous Improvement
+### Windows Troubleshooting
 
-This repository is continuously updated with additional infrastructure scenarios, automation experiments, and Windows Server lab simulations to reflect ongoing technical development.
+Simulated IT support incidents involving system performance and user issues.
+
+Example labs:
+
+* Slow Computer Troubleshooting Case Study
+* System Resource Investigation
+
+---
+
+### Microsoft 365
+
+Cloud service troubleshooting and email flow analysis.
+
+Example labs:
+
+* Gmail Email Delivery Issue Investigation
+* Mail Flow Troubleshooting
+
+---
+
+### Networking
+
+Network connectivity validation and infrastructure troubleshooting.
+
+Example labs:
+
+* DNS Troubleshooting
+* Network Connectivity Validation
+* Internal Network Configuration
+
+---
+
+### Process & ITIL
+
+Operational process simulations demonstrating how IT support teams handle incidents.
+
+Example labs:
+
+* Ticket Lifecycle Simulation
+* Incident Management Workflow
