@@ -1,10 +1,10 @@
 # IT Support Infrastructure Lab Portfolio
 
-This repository documents hands-on labs simulating real-world IT support and infrastructure administration tasks.
+This repository showcases hands-on labs simulating real-world IT support and infrastructure administration tasks.
 
-The environment replicates a small enterprise network using Windows Server, Active Directory, Linux servers, and Microsoft 365 services.
+The lab environment replicates a small enterprise network built with Windows Server, Active Directory, Linux servers, and Microsoft 365 services.
 
-Each lab demonstrates operational troubleshooting workflows used by enterprise IT teams.
+Each lab is documented using structured troubleshooting and operational workflows commonly used by enterprise IT support teams.
 
 ## Lab Infrastructure Architecture
 
@@ -22,26 +22,26 @@ All systems are deployed using Oracle VirtualBox in an isolated lab environment.
 
 ## Repository Structure
 
-Active Directory
+### Active Directory
 - User lifecycle management
 - Security group access control
 - File server permissions
 
-Windows Infrastructure
+### Windows Infrastructure
 - Windows server administration
 - NTFS permission troubleshooting
 
-Linux Infrastructure
+### Linux Infrastructure
 - Linux server integration with Active Directory
 
-Networking
+### Networking
 - DNS troubleshooting
 - Network connectivity diagnostics
 
-Microsoft 365
+### Microsoft 365
 - Cloud identity and email troubleshooting
 
-Process and ITIL
+### Process and ITIL
 - Incident management documentation
 
 ## Troubleshooting Methodology
@@ -66,7 +66,7 @@ All labs follow a structured troubleshooting process similar to real IT operatio
 - Network connectivity diagnostics
 - IT helpdesk incident documentation
 
-  ## Simulated IT Support Scenarios
+## Simulated IT Support Scenarios
 
 The following real-world IT support scenarios were simulated in this lab environment:
 
@@ -75,3 +75,5 @@ The following real-world IT support scenarios were simulated in this lab environ
 - Linux server integration with Active Directory
 - DNS resolution troubleshooting
 - Network connectivity validation
+
+These labs are designed to replicate common troubleshooting and administration tasks performed by IT support engineers in enterprise environments.
