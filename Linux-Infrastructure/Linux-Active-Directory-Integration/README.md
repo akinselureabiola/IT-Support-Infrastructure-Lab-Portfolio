@@ -1,5 +1,7 @@
 # Linux Server Integration – Active Directory Domain Environment
 
+This lab demonstrates how a Linux server can be prepared for integration with a Windows Active Directory domain by validating DNS configuration, network connectivity, and domain discovery prerequisites.
+
 ## Ticket Information
 
 - **Category:** Linux Infrastructure / Identity Integration  
@@ -71,7 +73,8 @@ Network Range: 192.168.10.0/24
 
 # Network Architecture
 
-![Architecture](/screenshots/lab-network-architecture.png)
+![Architecture](./screenshots/lab-network-architecture.png)
+
 
 This diagram illustrates the structure of the lab environment.
 
@@ -97,7 +100,9 @@ linux-srv01
 
 The following command was used to verify the system configuration:
 
+```bash
 hostnamectl
+```
 
 ![Linux Server Installation](./screenshots/linux-server-installation.png)
 
@@ -143,6 +148,7 @@ The Linux server was configured to use the Domain Controller as its DNS server.
 
 Verification command:
 
+```bash
 cat /etc/resolv.conf
 
 ![Linux DNS Configuration](./screenshots/linux-resolv-conf.png)
@@ -165,6 +171,7 @@ ping -c 4 192.168.10.10
 ![Linux Ping Domain Controller](./screenshots/linux-ping-dc.png)
 
 The screenshot displays the result of the connectivity test:
+
 ping -c 4 192.168.10.10
 
 
@@ -201,7 +208,7 @@ The successful hostname resolution confirms:
 
 
 
-# Virtual Machine Network Configuration 
+# Virtual Machine Network Configuration
 
 The Linux virtual machine network adapter was configured in Oracle VirtualBox.
 
@@ -218,11 +225,9 @@ The Linux virtual machine is connected to the **LABNET internal network**
 
 This configuration allows communication between:
 
-Domain Controller (DC01)
-
-Windows Client (CLIENT01)
-
-Linux Server (LINUX-SRV01)
+- Domain Controller (DC01)
+- Windows Client (CLIENT01)
+- Linux Server (LINUX-SRV01)
 
 within the isolated lab environment.
 
@@ -264,6 +269,29 @@ Expected output confirms:
 - Domain join configuration available
 
 Successful discovery verifies that the Linux server can communicate with Active Directory services and is ready for domain authentication configuration.
+
+---
+
+# Domain Join (Next Phase)
+
+Once the Linux server successfully discovers the Active Directory domain, the next step is joining the system to the domain.
+
+Command used for domain join:
+
+```
+sudo realm join bpurple.com
+```
+
+During the join process, the system requests credentials from a domain administrator with permission to add computers to the domain.
+
+Successful domain integration enables:
+
+* Active Directory authentication for Linux logins
+* Centralized identity management
+* Kerberos-based authentication
+* SSSD-based user identity services
+
+This lab focused on validating the infrastructure prerequisites required before performing a domain join operation.
 
 ---
 
