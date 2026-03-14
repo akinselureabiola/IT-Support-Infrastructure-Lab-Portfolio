@@ -1,82 +1,77 @@
-# Portfolio Structure
+# IT Support Infrastructure Lab Portfolio
 
-This repository contains hands-on IT infrastructure labs simulating common operational tasks performed by IT Support Engineers, System Administrators, and Infrastructure Support teams.
+This repository documents hands-on labs simulating real-world IT support and infrastructure administration tasks.
 
-The labs are organized into several infrastructure domains:
+The environment replicates a small enterprise network using Windows Server, Active Directory, Linux servers, and Microsoft 365 services.
 
-### Active Directory
+Each lab demonstrates operational troubleshooting workflows used by enterprise IT teams.
 
-User and group management, permissions troubleshooting, and domain services.
+## Lab Infrastructure Architecture
 
-Example labs:
+The lab environment simulates a small enterprise infrastructure.
 
-* Security Group Access Troubleshooting
-* File Server Permission Investigation
+Components include:
 
----
+- Windows Server 2016 Domain Controller
+- Active Directory Domain Services
+- Windows 10 Domain Client
+- Ubuntu Linux Server integrated with Active Directory
+- Internal enterprise network (192.168.10.0/24)
 
-### Linux Infrastructure
+All systems are deployed using Oracle VirtualBox in an isolated lab environment.
 
-Linux server deployment and integration with Windows Active Directory environments.
+## Repository Structure
 
-Example labs:
+Active Directory
+- User lifecycle management
+- Security group access control
+- File server permissions
 
-* Linux Server Active Directory Integration
-* DNS and Network Validation for Domain Communication
+Windows Infrastructure
+- Windows server administration
+- NTFS permission troubleshooting
 
----
+Linux Infrastructure
+- Linux server integration with Active Directory
 
-### Windows Infrastructure
+Networking
+- DNS troubleshooting
+- Network connectivity diagnostics
 
-Configuration and troubleshooting of Windows-based systems within enterprise environments.
+Microsoft 365
+- Cloud identity and email troubleshooting
 
-Example labs:
+Process and ITIL
+- Incident management documentation
 
-* File Server Management
-* NTFS Permission Troubleshooting
-* Shared Folder Access Investigation
+## Troubleshooting Methodology
 
----
+All labs follow a structured troubleshooting process similar to real IT operations environments.
 
-### Windows Troubleshooting
+1. Identify the issue
+2. Validate network connectivity
+3. Investigate system configuration
+4. Identify root cause
+5. Apply resolution
+6. Verify service restoration
+7. Document findings
 
-Simulated IT support incidents involving system performance and user issues.
+## Skills Demonstrated
 
-Example labs:
+- Active Directory administration
+- Windows Server infrastructure management
+- Linux server integration with Active Directory
+- Identity and access management
+- DNS troubleshooting
+- Network connectivity diagnostics
+- IT helpdesk incident documentation
 
-* Slow Computer Troubleshooting Case Study
-* System Resource Investigation
+  ## Simulated IT Support Scenarios
 
----
+The following real-world IT support scenarios were simulated in this lab environment:
 
-### Microsoft 365
-
-Cloud service troubleshooting and email flow analysis.
-
-Example labs:
-
-* Gmail Email Delivery Issue Investigation
-* Mail Flow Troubleshooting
-
----
-
-### Networking
-
-Network connectivity validation and infrastructure troubleshooting.
-
-Example labs:
-
-* DNS Troubleshooting
-* Network Connectivity Validation
-* Internal Network Configuration
-
----
-
-### Process & ITIL
-
-Operational process simulations demonstrating how IT support teams handle incidents.
-
-Example labs:
-
-* Ticket Lifecycle Simulation
-* Incident Management Workflow
+- User unable to access shared department folder
+- Active Directory user lifecycle management
+- Linux server integration with Active Directory
+- DNS resolution troubleshooting
+- Network connectivity validation
