@@ -8,17 +8,16 @@ Each lab is documented using structured troubleshooting and operational workflow
 
 ## Lab Infrastructure Architecture
 
-The lab environment simulates a small enterprise infrastructure.
+The lab environment simulates a small enterprise IT infrastructure designed for practicing system administration and IT support operations.
 
-Components include:
+The environment consists of the following components:
 
-- Windows Server 2016 Domain Controller
-- Active Directory Domain Services
-- Windows 10 Domain Client
-- Ubuntu Linux Server integrated with Active Directory
-- Internal enterprise network (192.168.10.0/24)
+- **Windows Server 2016 Domain Controller (DC01)** running Active Directory Domain Services  
+- **Windows 10 Domain Client (CLIENT01)** used to simulate end-user workstation scenarios  
+- **Ubuntu Linux Server** integrated with Active Directory services  
+- **Internal enterprise network (192.168.10.0/24)** configured within Oracle VirtualBox  
 
-All systems are deployed using Oracle VirtualBox in an isolated lab environment.
+All systems are deployed in an isolated virtual lab environment using **Oracle VirtualBox**, allowing safe simulation of enterprise infrastructure tasks such as identity management, network troubleshooting, and system administration.
 
 ## Repository Structure
 
