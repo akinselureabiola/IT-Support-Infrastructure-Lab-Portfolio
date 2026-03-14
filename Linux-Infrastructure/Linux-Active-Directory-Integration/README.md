@@ -130,9 +130,11 @@ Network configuration values:
 | Subnet | 255.255.255.0 |
 | DNS Server | 192.168.10.10 |
 
-The network configuration was verified using the command:
+The network configuration was verified using the following command:
 
+```bash
 ip a
+```
 
 ![Linux Server IP Address](./screenshots/linux-ip-address.png)
 
@@ -150,13 +152,13 @@ Verification command:
 
 ```bash
 cat /etc/resolv.conf
+```
 
 ![Linux DNS Configuration](./screenshots/linux-resolv-conf.png)
 
-This screenshot shows the DNS configuration file verified using:
-cat /etc/resolv.conf
+This screenshot shows the DNS configuration file verified using the command above.
 
-It confirms that the Linux server is configured to use **192.168.10.10**, as its primary DNS server, allowing it to resolve Active Directory resources.
+It confirms that the Linux server is configured to use 192.168.10.10 as its primary DNS server, allowing it to resolve Active Directory resources.
 
 ---
 
@@ -166,22 +168,19 @@ Connectivity between the Linux server and Domain Controller was tested using ICM
 
 Command executed:
 
+```bash
 ping -c 4 192.168.10.10
+```
 
-![Linux Ping Domain Controller](./screenshots/linux-ping-dc.png)
-
-The screenshot displays the result of the connectivity test:
-
-ping -c 4 192.168.10.10
-
+The screenshot displays the result of the connectivity test.
 
 Successful replies confirm:
 
-1. The Linux server can reach the Domain Controller
+The Linux server can reach the Domain Controller
 
-2. Internal lab network communication is functioning correctly
+Internal lab network communication is functioning correctly
 
-3. The infrastructure is ready for Active Directory integration.
+The infrastructure is ready for Active Directory integration
 
 ---
 
@@ -191,20 +190,20 @@ Proper DNS resolution is required before Linux systems can authenticate against 
 
 Command executed:
 
+```bash
 ping -c 4 dc01.bpurple.com
+```
+
 
 ![Linux Domain Resolution](./screenshots/linux-domain-resolution.png)
 
-This screenshot shows the result of:
-ping -c 4 dc01.bpurple.com
-
 The successful hostname resolution confirms:
 
-1. The Linux server can resolve Active Directory DNS records
+The Linux server can resolve Active Directory DNS records
 
-2. The Domain Controller is discoverable through DNS
+The Domain Controller is discoverable through DNS
 
-3. The system is ready for Kerberos-based authentication
+The system is ready for Kerberos-based authentication
 
 
 
@@ -250,7 +249,10 @@ Packages installed:
 These components enable Linux systems to integrate with Active Directory using **Kerberos authentication and SSSD identity services**.
 
 The installation was completed using the following command:
+
+```bash
 sudo apt install realmd sssd krb5-user adcli samba-common-bin oddjob oddjob-mkhomedir
+```
 
 ---
 
@@ -259,8 +261,10 @@ sudo apt install realmd sssd krb5-user adcli samba-common-bin oddjob oddjob-mkho
 Before joining the domain, the Linux server must confirm it can discover the Active Directory environment.
 
 Command executed:
-realm discover bpurple.com
 
+```bash
+realm discover bpurple.com
+```
 
 Expected output confirms:
 
@@ -278,7 +282,7 @@ Once the Linux server successfully discovers the Active Directory domain, the ne
 
 Command used for domain join:
 
-```
+```bash
 sudo realm join bpurple.com
 ```
 
