@@ -86,94 +86,152 @@ All systems communicate within the **192.168.10.0/24 LABNET internal network**.
 
 # Linux Server Deployment
 
-A Linux server virtual machine was deployed using **Ubuntu Server 24.04 LTS** inside Oracle VirtualBox.
+A Linux virtual machine was deployed using **Ubuntu Server 24.04 LTS** inside Oracle VirtualBox.
 
 The server was connected to the **LABNET internal network** to allow communication with the Domain Controller.
 
-Hostname:
+The system was configured with the hostname:
 
 linux-srv01
+
+The following command was used to verify the system configuration:
+
+hostnamectl
+
+![Linux Server Installation](./screenshots/linux-server-installation.png)
+
+The screenshot confirms:
+
+1. The server hostname linux-srv01.bpurple.com
+
+2. The operating system Ubuntu 24.04 LTS
+
+3. The virtualization environment Oracle VirtualBox
+
+This verifies that the Linux server installation completed successfully.
 
 ---
 
 # Network Configuration
 
-IP Address
+The Linux server was configured with a static IP address to ensure reliable communication with the Domain Controller.
 
-192.168.10.30
+Network configuration values:
 
-DNS Server
+| Setting | Value |
+|--------|------|
+| IP Address | 192.168.10.30 |
+| Subnet | 255.255.255.0 |
+| DNS Server | 192.168.10.10 |
 
-192.168.10.10
-
-
-Verification command:
+The network configuration was verified using the command:
 
 ip a
+
+![Linux Server IP Address](./screenshots/linux-ip-address.png)
+
+The output confirms that the Linux server has been assigned the correct IP address within the 192.168.10.0/24 enterprise network.
 
 ---
 
 # DNS Configuration
 
-To allow Linux to resolve the Active Directory domain, the DNS server was configured to point to the Domain Controller.
+Active Directory environments rely heavily on DNS for service discovery.
 
-DNS Server:
-
-192.168.10.10
+The Linux server was configured to use the Domain Controller as its DNS server.
 
 Verification command:
 
 cat /etc/resolv.conf
 
+![Linux DNS Configuration](./screenshots/linux-resolv-conf.png)
+
+This screenshot shows the DNS configuration file verified using:
+cat /etc/resolv.conf
+
+It confirms that the Linux server is configured to use **192.168.10.10**, as its primary DNS server, allowing it to resolve Active Directory resources.
+
 ---
 
 # Connectivity Validation
 
-Network communication with the Domain Controller was tested.
+Connectivity between the Linux server and Domain Controller was tested using ICMP.
 
-Command:
+Command executed:
 
-ping 192.168.10.10
+ping -c 4 192.168.10.10
 
-Result:
+![Linux Ping Domain Controller](./screenshots/linux-ping-dc.png)
 
-64 bytes from 192.168.10.10: icmp_seq=1 ttl=128 time=0.45 ms
+The screenshot displays the result of the connectivity test:
+ping -c 4 192.168.10.10
 
-This confirmed:
 
-- Network connectivity
-- Internal network communication
-- Domain Controller accessibility
+Successful replies confirm:
+
+1. The Linux server can reach the Domain Controller
+
+2. Internal lab network communication is functioning correctly
+
+3. The infrastructure is ready for Active Directory integration.
 
 ---
 
 # Domain Name Resolution
 
-The Linux server environment has been successfully prepared for
-Active Directory authentication integration.
+Proper DNS resolution is required before Linux systems can authenticate against Active Directory.
 
-The server can communicate with the Domain Controller, resolve
-domain resources through DNS, and participate in the enterprise
-network infrastructure.
+Command executed:
 
-The environment is now ready for domain authentication using
-Kerberos and SSSD.
+ping -c 4 dc01.bpurple.com
 
-Command:
+![Linux Domain Resolution](./screenshots/linux-domain-resolution.png)
 
-ping dc01.bpurple.com
+This screenshot shows the result of:
+ping -c 4 dc01.bpurple.com
 
-Result:
+The successful hostname resolution confirms:
 
-PING dc01.bpurple.com (192.168.10.10)
+1. The Linux server can resolve Active Directory DNS records
 
-This confirms that the Linux system is correctly using the **Active Directory DNS service**.
+2. The Domain Controller is discoverable through DNS
+
+3. The system is ready for Kerberos-based authentication
+
+
+
+# Virtual Machine Network Configuration 
+
+The Linux virtual machine network adapter was configured in Oracle VirtualBox.
+
+Network settings:
+
+Adapter 1 → Internal Network
+Network Name → LABNET
+
+![VirtualBox Network Settings](./screenshots/virtualbox-network-settings.png)
+
+The screenshot above shows the **Oracle VirtualBox network adapter configuration**.
+
+The Linux virtual machine is connected to the **LABNET internal network**
+
+This configuration allows communication between:
+
+Domain Controller (DC01)
+
+Windows Client (CLIENT01)
+
+Linux Server (LINUX-SRV01)
+
+within the isolated lab environment.
 
 ---
 
 # Domain Integration Preparation
 
-The Linux system was prepared for Active Directory integration using the following packages:
+The Linux system was prepared for Active Directory integration by installing the required authentication and identity services packages.
+
+Packages installed:
 
 - realmd
 - sssd
@@ -183,101 +241,44 @@ The Linux system was prepared for Active Directory integration using the followi
 - oddjob
 - oddjob-mkhomedir
 
-These tools allow Linux systems to authenticate users through Active Directory.
+These components enable Linux systems to integrate with Active Directory using **Kerberos authentication and SSSD identity services**.
+
+The installation was completed using the following command:
+sudo apt install realmd sssd krb5-user adcli samba-common-bin oddjob oddjob-mkhomedir
 
 ---
 
-# Verification
+## Active Directory Discovery
 
-Linux server validation:
+Before joining the domain, the Linux server must confirm it can discover the Active Directory environment.
 
-Hostname: linux-srv01  
-IP Address: 192.168.10.30  
-DNS Server: 192.168.10.10  
-
-Connectivity test:
-
-ping dc01.bpurple.com
-
-Result:
-
-Reply from 192.168.10.10
-
----
-
-# Evidence — Lab Screenshots
+Command executed:
+realm discover bpurple.com
 
 
-These screenshots provide visual confirmation of the configuration steps and validation tests performed during the Linux server integration process.
+Expected output confirms:
+
+- Active Directory domain detected
+- Kerberos realm discovered
+- Domain join configuration available
+
+Successful discovery verifies that the Linux server can communicate with Active Directory services and is ready for domain authentication configuration.
 
 ---
 
-## Linux Server Installation
+# Troubleshooting Notes
 
-![Linux Server Installation](./screenshots/linux-server-installation.png)
+During validation, the following checks were performed:
 
-This screenshot shows the deployed **Ubuntu Server 24.04 LTS virtual machine**.  
-It confirms that the Linux server was successfully installed and configured with the hostname **linux-srv01**.
-
----
-
-## Linux Server IP Address Configuration
-
-![Linux Server IP Address](./screenshots/linux-ip-address.png)
-
-The screenshot above shows the output of the command:
-ip a
+| Check | Purpose |
+|------|------|
+| `ip a` | Verify network interface configuration |
+| `cat /etc/resolv.conf` | Validate DNS configuration |
+| `ping 192.168.10.10` | Confirm network connectivity |
+| `ping dc01.bpurple.com` | Confirm domain name resolution |
 
 
-It confirms that the Linux server was assigned the correct static IP address **192.168.10.30** within the enterprise lab network.
-
----
-
-## DNS Configuration
-
-![Linux DNS Configuration](./screenshots/linux-resolv-conf.png)
-
-This screenshot shows the DNS configuration file verified using:
-cat /etc/resolv.conf
-
-
-It confirms that the Linux server is configured to use **192.168.10.10**, the Domain Controller, as its DNS server.
-
----
-
-## Connectivity to Domain Controller
-
-![Linux Ping Domain Controller](./screenshots/linux-ping-dc.png)
-
-The screenshot displays the result of the connectivity test:
-ping 192.168.10.10
-
-
-Successful replies confirm that the Linux server can communicate with the **Domain Controller (DC01)** over the network.
-
----
-
-## Domain Name Resolution
-
-![Linux Domain Resolution](./screenshots/linux-domain-resolution.png)
-
-This screenshot shows the result of:
-ping dc01.bpurple.com
-
-
-The successful hostname resolution confirms that the Linux server is correctly using **Active Directory DNS services**.
-
----
-
-## VirtualBox Network Configuration
-
-The Linux virtual machine is connected to the **LABNET internal network**, allowing communication between:
-
-- Domain Controller
-- Windows Client
-- Linux Server
-
----
+All checks returned successful results, indicating that the Linux server was correctly configured to communicate with the Active Directory environment.
 
 # Business Impact
 
@@ -307,9 +308,19 @@ Integrating Linux servers with Active Directory allows organizations to:
 
 # Key Takeaway
 
-Enterprise environments rarely consist of a single operating system.
+In enterprise environments, Linux servers frequently integrate with Windows Active Directory infrastructure.
 
-Understanding how **Linux systems interact with Active Directory environments** is a critical skill for system administrators and IT support engineers.
+Before joining a Linux system to a domain, administrators must ensure:
+
+1. Correct network configuration
+
+2. Proper DNS resolution
+
+3. Reliable connectivity to the Domain Controller
+
+Without these prerequisites, Kerberos authentication and domain join operations will fail.
+
+This lab demonstrates the foundational infrastructure checks required before integrating Linux systems into enterprise identity environments.
 
 ---
 
