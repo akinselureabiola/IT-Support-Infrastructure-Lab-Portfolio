@@ -1,12 +1,14 @@
 # IT Support Infrastructure Lab Portfolio
 
+> 🚀 Hands-on portfolio showcasing real-world IT support, system administration, and infrastructure automation skills.
+
 ## Overview
 
 This repository contains hands-on labs simulating real-world enterprise IT support and infrastructure administration scenarios.
 
 The lab environment replicates a small corporate network built with Windows Server, Active Directory, Linux servers, and Microsoft 365 services.
 
-Each project demonstrates structured troubleshooting, system administration, and incident management processes commonly used by enterprise IT support teams.
+Each project demonstrates structured troubleshooting, system administration, automation using Group Policy, and identity & access management practices commonly used in enterprise IT environments.
 
 ---
 
@@ -32,10 +34,11 @@ All systems are deployed in an isolated virtual lab environment using **Oracle V
 - Windows 10
 - Ubuntu Linux
 - Microsoft 365
-- NTFS File Permissions
+- NTFS Permissions
 - DNS
 - TCP/IP Networking
 - Oracle VirtualBox
+- Group Policy (GPO)
 
 ---
 
@@ -45,6 +48,8 @@ All systems are deployed in an isolated virtual lab environment using **Oracle V
 - User lifecycle management
 - Security group access control
 - File server permissions
+- Group Policy (GPO) configuration and automation
+- Network drive mapping using GPO
 
 ### Windows Infrastructure
 - Windows Server administration
@@ -89,6 +94,9 @@ All labs follow a structured troubleshooting process similar to real enterprise 
 - Network connectivity diagnostics
 - IT helpdesk incident documentation
 - Enterprise troubleshooting workflows
+- Group Policy (GPO) configuration and management
+- IT process automation using Group Policy
+- Role-based access control (RBAC) using security groups
 
 ---
 
@@ -101,5 +109,12 @@ The following real-world IT support scenarios were simulated in this lab environ
 - Linux server integration with Active Directory
 - DNS resolution troubleshooting
 - Network connectivity validation
+- Automated network drive mapping using Group Policy (GPO)
 
-These labs replicate common troubleshooting and administration tasks performed by IT support engineers in enterprise environments.
+Recent labs focus on automating administrative tasks using Group Policy, including:
+
+- Automated network drive mapping
+- Security group-based access control
+- Centralized configuration management
+
+These scenarios reflect real-world enterprise environments where automation, access control, and structured troubleshooting are critical for scalability, security, and operational efficiency.
