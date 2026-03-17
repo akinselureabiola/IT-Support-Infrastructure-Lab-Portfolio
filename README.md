@@ -1,6 +1,6 @@
 # IT Support Infrastructure Lab Portfolio
 
-> 🚀 Hands-on portfolio showcasing real-world IT support, system administration, and infrastructure automation skills.
+🚀 Hands-on portfolio showcasing real-world IT support, system administration, and infrastructure automation skills.
 
 ## Overview
 
