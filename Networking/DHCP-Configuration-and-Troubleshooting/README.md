@@ -78,7 +78,7 @@ The DHCP server was configured with the following settings:
 * Added **DHCP Server role**
 * Completed post-install configuration
 
-📸 *Screenshot:* `dhcp-role-installed.png` (Server Manager showing DHCP role active)
+![Server Manager showing DHCP role active](./screenshots/dhcp-role-installed.png)
 
 ---
 
@@ -87,7 +87,7 @@ The DHCP server was configured with the following settings:
 * Authorized the server in Active Directory
 * Ensured only trusted DHCP servers can assign IP addresses
 
-📸 *Screenshot:* `dhcp-authorized.png`
+![Authorized server in Active Directory](./screenshots/dhcp-authorized.png)
 
 ---
 
@@ -97,7 +97,7 @@ The DHCP server was configured with the following settings:
 * Configured subnet mask
 * Activated the scope
 
-📸 *Screenshot:* `dhcp-scope-created.png`
+![Created and Configured DHCP Scope](./screenshots/dhcp-scope-created.png)
 
 ---
 
@@ -109,7 +109,7 @@ Configured:
 * **006 DNS Server:** 192.168.10.10
 * **015 Domain Name:** bpurple.com
 
-📸 *Screenshot:* `dhcp-scope-options.png`
+![Configured DHCP Options](./screenshots/dhcp-scope-options.png)
 
 ---
 
@@ -134,7 +134,7 @@ ipconfig /renew
 
   > “An address has not yet been associated with the network endpoint”
 
-📸 *Screenshot:* `dhcp-release-error.png`
+![IP Address Error](./screenshots/dhcp-release-error.png)
 
 ---
 
@@ -154,7 +154,7 @@ ipconfig
 
 * No valid IP or incorrect configuration
 
-📸 *Screenshot:* `client-no-ip.png`
+![Incorrect Configuration](./screenshots/client-no-ip.png)
 
 ---
 
@@ -165,7 +165,7 @@ On DC01:
 * DHCP service → **Running**
 * Server → **Authorized**
 
-📸 *Screenshot:* `dhcp-service-running.png`
+![DHCP Server Status](./screenshots/dhcp-service-running.png)
 
 ---
 
@@ -175,7 +175,7 @@ On DC01:
 * Scope activated
 * Address pool verified (IP range visible)
 
-📸 *Screenshot:* `dhcp-scope-active.png`
+![DHCP Scope Status](./screenshots/dhcp-scope-active.png)
 
 ---
 
@@ -189,7 +189,7 @@ ipconfig /renew
 
 * Client successfully received IP from DHCP
 
-📸 *Screenshot:* `dhcp-successful-assignment.png`
+![DHCP Assignment Successful](./screenshots/dhcp-successful-assignment.png)
 
 ---
 
@@ -226,7 +226,7 @@ ipconfig
 ✔ Subnet correct
 ✔ DNS suffix applied
 
-📸 *Screenshot:* `final-ipconfig.png`
+![IP Assignment Validation](./screenshots/final-ipconfig.png)
 
 ---
 
@@ -242,7 +242,7 @@ ping dc01.bpurple.com
 * Network connectivity
 * DNS resolution
 
-📸 *Screenshot:* `ping-dc-success.png`
+![Domain Connectivity Verification](./screenshots/ping-dc-success.png)
 
 ---
 
@@ -254,7 +254,7 @@ ping 192.168.10.1
 
 ❌ Result: Destination host unreachable
 
-📸 *Screenshot:* `ping-gateway-fail.png`
+![Gateway Connectivity Failure](./screenshots/ping-gateway-fail.png)
 
 ---
 
