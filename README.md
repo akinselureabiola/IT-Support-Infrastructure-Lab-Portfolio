@@ -1,120 +1,62 @@
-# IT Support Infrastructure Lab Portfolio
+# IT Support Lab (Active Directory, Microsoft 365, Networking)
 
-🚀 Hands-on portfolio showcasing real-world IT support, system administration, and infrastructure automation skills.
+🚀 Hands-on lab environment built to practice real-world IT support and basic system administration tasks.
 
 ## Overview
 
-This repository contains hands-on labs simulating real-world enterprise IT support and infrastructure administration scenarios.
+This repository contains practical labs that simulate common IT support scenarios in a small company environment.
 
-The lab environment replicates a small corporate network built with Windows Server, Active Directory, Linux servers, and Microsoft 365 services.
-
-Each project demonstrates structured troubleshooting, system administration, automation using Group Policy, and identity & access management practices commonly used in enterprise IT environments.
+The lab includes Active Directory, Microsoft 365, networking, and Windows systems, allowing me to practice user support, troubleshooting, and system configuration tasks.
 
 ---
 
-## Lab Infrastructure Architecture
+## Lab Setup
 
-The lab environment simulates a small enterprise IT infrastructure designed for practicing system administration and IT support operations.
+The environment includes:
 
-The environment consists of the following components:
+* Windows Server (Active Directory Domain Controller)
+* Windows client machine (user workstation simulation)
+* Ubuntu Linux server
+* Internal virtual network (VirtualBox)
 
-- **Windows Server 2016 Domain Controller (DC01)** running Active Directory Domain Services  
-- **Windows 10 Domain Client (CLIENT01)** used to simulate end-user workstation scenarios  
-- **Ubuntu Linux Server** integrated with Active Directory services  
-- **Internal enterprise network (192.168.10.0/24)** configured within Oracle VirtualBox  
-
-All systems are deployed in an isolated virtual lab environment using **Oracle VirtualBox**, allowing safe simulation of enterprise infrastructure tasks such as identity management, network troubleshooting, and system administration.
+This setup helps replicate real IT environments where users, systems, and networks need to be managed and supported.
 
 ---
 
-## Technologies Used
+## What I Practiced
 
-- Active Directory Domain Services
-- Windows Server 2016
-- Windows 10
-- Ubuntu Linux
-- Microsoft 365
-- NTFS Permissions
-- DNS
-- TCP/IP Networking
-- Oracle VirtualBox
-- Group Policy (GPO)
+* User account management in Active Directory
+* Password resets and access issues
+* Microsoft 365 user support (MFA, mailbox access)
+* Basic network troubleshooting (DNS, connectivity)
+* Group Policy configuration (e.g. drive mapping)
+* Device and system troubleshooting
 
 ---
 
-## Repository Structure
+## Example Scenarios
 
-### Active Directory
-- User lifecycle management
-- Security group access control
-- File server permissions
-- Group Policy (GPO) configuration and automation
-- Network drive mapping using GPO
-
-### Windows Infrastructure
-- Windows Server administration
-- NTFS permission troubleshooting
-
-### Linux Infrastructure
-- Linux server integration with Active Directory
-
-### Networking
-- DNS troubleshooting
-- Network connectivity diagnostics
-
-### Microsoft 365
-- Cloud identity and email troubleshooting
-
-### Process and ITIL
-- Incident management documentation
+* User unable to access shared folder
+* Password reset and account access issues
+* Network connectivity problems
+* DNS resolution issues
+* Automated drive mapping using Group Policy
 
 ---
 
-## Troubleshooting Methodology
+## Approach
 
-All labs follow a structured troubleshooting process similar to real enterprise IT operations environments.
+For each issue, I followed a structured troubleshooting process:
 
-1. Identify the issue  
-2. Validate network connectivity  
-3. Investigate system configuration  
-4. Identify root cause  
-5. Apply resolution  
-6. Verify service restoration  
-7. Document findings  
-
----
-
-## Skills Demonstrated
-
-- Active Directory administration
-- Windows Server infrastructure management
-- Linux server integration with Active Directory
-- Identity and access management
-- DNS troubleshooting
-- Network connectivity diagnostics
-- IT helpdesk incident documentation
-- Enterprise troubleshooting workflows
-- Group Policy (GPO) configuration and management
-- IT process automation using Group Policy
-- Role-based access control (RBAC) using security groups
+1. Identify the problem
+2. Check connectivity
+3. Investigate configuration
+4. Find the root cause
+5. Apply a fix
+6. Verify resolution
 
 ---
 
-## Simulated IT Support Scenarios
+## Purpose
 
-The following real-world IT support scenarios were simulated in this lab environment:
-
-- User unable to access shared department folder
-- Active Directory user lifecycle management
-- Linux server integration with Active Directory
-- DNS resolution troubleshooting
-- Network connectivity validation
-- Automated network drive mapping using Group Policy (GPO)
-
-Recent labs focus on automating administrative tasks using Group Policy, including:
-
-- Automated network drive mapping
-- Security group-based access control
-- Centralized configuration management
-
-These scenarios reflect real-world enterprise environments where automation, access control, and structured troubleshooting are critical for scalability, security, and operational efficiency.
+This lab helps me build practical IT support skills by working through real-world scenarios and understanding how systems behave in a controlled environment.
