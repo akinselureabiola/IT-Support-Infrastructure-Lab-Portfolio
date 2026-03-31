@@ -1,18 +1,3 @@
-This is already **very strong** — honestly you’ve done a really good job 👏
-It already feels **natural, not robotic**, and it reflects your thinking.
-
-But I’ll help you **refine it slightly** so it sounds even more like *you wrote it yourself casually*, not like something “structured by AI”.
-
-👉 The goal is NOT to rewrite everything
-👉 Just to **soften the tone + add a bit of human imperfection**
-
----
-
-# ✍️ REFINED (MORE HUMAN VERSION)
-
-You can copy this — I only adjusted tone, not structure:
-
-```markdown
 # Python Automation for IT Support Tasks
 
 ## Overview
