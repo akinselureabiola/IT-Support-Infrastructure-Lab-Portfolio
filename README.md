@@ -1,10 +1,10 @@
 ## 💼 About Me
 
-I’m an IT Support-focused professional with hands-on experience troubleshooting Active Directory, Microsoft 365, and Windows environments.
+I’m an IT Support-focused professional with hands-on experience working with Active Directory, Microsoft 365, and Windows environments.
 
-I enjoy breaking down technical issues, finding root causes, and helping users get back to work quickly.
+I enjoy troubleshooting technical issues, identifying root causes, and helping users get back to work quickly.
 
-This portfolio highlights the type of real-world support scenarios I’ve worked through while building practical experience.
+This portfolio highlights the real-world support scenarios I’ve worked through while building practical, job-ready experience.
 
 # IT Support Portfolio – Active Directory, Microsoft 365 & Networking
 
