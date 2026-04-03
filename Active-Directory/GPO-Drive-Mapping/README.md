@@ -24,6 +24,31 @@ Instead of mapping the drive manually on each computer, I used Group Policy to a
 
 ---
 
+## Ticket Context (Simulated Support Case)
+
+For this lab, I approached it like a real support request.
+
+A user from the HR department needed access to a shared folder, but instead of setting it up manually on each system, the goal was to provide a solution that works automatically for all users in that group.
+
+## Ticket Summary
+Issue: HR users do not have access to shared drive
+Service: Active Directory / Group Policy
+Impact: Users unable to access shared departmental files
+Priority: Medium
+Status: Resolved
+
+---
+
+## Approach
+
+To handle this, I focused on creating a scalable solution instead of a one-time fix.
+
+I set up a Group Policy to automatically map the shared drive and used a security group to control who gets access.
+
+This way, any user added to the group would receive the drive automatically without manual configuration.
+
+---
+
 ## 🖥️ Lab Environment
 
 | System   | Role              | IP Address    |

@@ -18,15 +18,29 @@ A client machine was unable to obtain an IP address from the DHCP server, preven
 
 The issue was investigated and resolved by validating DHCP configuration and retriggering the lease process.
 
+---
 
-| Field      | Details                                 |
-| ---------- | --------------------------------------- |
-| Ticket ID  | DHCP-001                                |
-| Category   | Network / DHCP                          |
-| Priority   | Medium (P2)                             |
-| Issue      | Client unable to obtain IP address      |
-| Impact     | User unable to access network resources |
-| Status     | Resolved                                |
+## Ticket Context (Simulated Support Case)
+
+For this lab, I approached the issue as a real support request.
+
+A user reported that their system was connected to the network but was not receiving an IP address, which prevented access to internal resources.
+
+## Ticket Summary
+
+Issue: Client unable to obtain IP address  
+Service: Network (DHCP)  
+Impact: User cannot access network resources or connect to the domain  
+Priority: Medium  
+Status: Resolved  
+
+## Ticket Description
+
+The client machine was unable to obtain an IP address from the DHCP server after being configured to use automatic IP assignment.
+
+As a result, the system could not communicate properly on the network, and access to domain resources was unavailable.
+
+The issue needed to be investigated from both the client side and the DHCP server to identify where the failure was occurring.
 
 ---
 

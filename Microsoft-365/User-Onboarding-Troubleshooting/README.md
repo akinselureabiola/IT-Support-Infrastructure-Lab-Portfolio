@@ -18,6 +18,29 @@ This is a common issue in Microsoft 365 environments and is often related to lic
 
 ---
 
+## Ticket Context (Simulated Support Case)
+
+For this lab, I approached the issue like a real support ticket.
+
+A newly created user was unable to access email after logging into Microsoft 365, and the issue needed to be investigated to determine whether it was related to account setup, licensing, or service configuration.
+
+## Ticket Summary
+Issue: New user unable to access email
+Service: Microsoft 365 (Exchange Online)
+Impact: User cannot send or receive emails
+Priority: Medium
+Status: Investigated (pending license availability)
+
+## Ticket Description
+
+A newly created user reported that they were unable to access email after signing into their Microsoft 365 account.
+
+The account appeared to be created successfully, but email functionality was not available.
+
+The issue required verification of user setup, licensing, and service availability to determine why the mailbox was not accessible.
+
+---
+
 ## 🔍 Investigation Process
 
 I followed a structured troubleshooting approach, starting with account validation and moving toward licensing and service checks.
