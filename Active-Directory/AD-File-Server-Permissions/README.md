@@ -2,11 +2,11 @@
 
 ## Enterprise Shared Folder Permissions Lab
 
-In this lab, I worked through a real-world file server access issue in an Active Directory environment.
+In this lab, I worked through a shared folder access issue in an Active Directory environment.
 
-The scenario simulates a common IT support ticket where a user is unable to access a shared folder, and I investigated the issue step by step to identify the root cause and restore access.
+The scenario simulates a common IT support ticket where a user is unable to access a shared project folder. I went through the issue step by step, checked the network connection, reviewed the permissions, checked the user's Active Directory group membership, and then restored the user's access.
 
-The goal was to practice how shared folder permissions are handled using security groups and NTFS permissions, just like in a typical enterprise environment.
+The main goal was to get more comfortable with how Active Directory groups, share permissions, and NTFS permissions work together when managing access to shared resources.
 
 ---
 
@@ -27,11 +27,13 @@ The goal was to practice how shared folder permissions are handled using securit
 
 ## Incident Report
 
-I simulated a scenario where a user reported they could not access the company Projects shared folder.
+I simulated a support request from a user who was unable to access the company Projects shared folder.
 
-In a typical enterprise setup, shared folders are used to store project files, internal documents, and team resources, and access is usually controlled using Active Directory groups and NTFS permissions.
+The folder is used to represent a shared company resource where employees can store and access project files.
 
-The goal here was to troubleshoot why the user was getting an access issue and resolve it using a structured approach.
+Access to the folder is managed through an Active Directory security group and NTFS permissions.
+
+The goal was to find out why the user was getting an **Access Denied** message and restore access without changing permissions unnecessarily.
 
 ---
 
@@ -43,27 +45,31 @@ The goal here was to troubleshoot why the user was getting an access issue and r
 | CLIENT01 | Windows Domain Client | DHCP |
 
 ### Domain
-bpurple.com
+
+`bpurple.com`
 
 ### Operating Systems
-- Windows Server 2016 (Domain Controller)
-- Windows 10 (Client Machine)
+
+- Windows Server 2016
+- Windows 10
 
 ### Virtualization Platform
+
 Oracle VirtualBox
 
 ### Network
-Internal Network LABNET  
-192.168.10.0/24
+
+Internal Network: `LABNET`  
+Network: `192.168.10.0/24`
 
 ---
 
 # Network Architecture
 
-The diagram below illustrates the lab network topology.
+The lab uses two main machines:
 
-- DC01 acts as both the Domain Controller and File Server  
-- CLIENT01 is the domain joined workstation used to test access
+- **DC01** – Domain Controller and File Server
+- **CLIENT01** – Windows client used to simulate the user's workstation
 
 ![Lab Network Architecture](screenshots/lab-network-architecture.png)
 
@@ -71,13 +77,13 @@ The diagram below illustrates the lab network topology.
 
 # File Server Configuration
 
-A shared folder was created on the Domain Controller to simulate a company file server used by employees to store and access project related files.
+I created a `Projects` folder on the server to simulate a company shared folder.
 
 ### Folder Path
 
-C:\CompanyData\Projects
+`C:\CompanyData\Projects`
 
-### Folder Structure
+The folder contains several subfolders that represent different company resources.
 
 ![Projects Folder Structure](screenshots/projects-folder.png)
 
@@ -85,47 +91,47 @@ C:\CompanyData\Projects
 
 # Share Configuration
 
-The folder was shared on the network using the UNC path:
+The folder was shared so that it could be accessed from the client using the following UNC path:
 
-\\dc01\Projects
+`\\dc01\Projects`
 
 ### Initial Share Permissions
 
-Initially the share allowed **Everyone** access.
+For the initial setup, the share was configured to allow **Everyone** access.
 
 ![Initial Share Permissions](screenshots/share-permissions-initial.png)
 
-In enterprise environments this configuration is typically replaced with group based access control.
+I then used Active Directory and NTFS permissions to control which users should actually have access to the folder.
 
 ---
 
-# Security Group Configuration
+# Security Group
 
-To follow enterprise access control best practices, permissions were assigned to a security group instead of individual users.
+Instead of assigning permissions directly to individual users, I created an Active Directory security group:
 
-Security Group: **Project-Team**
+**Project-Team**
 
 ![Project Team Security Group](screenshots/project-team-group.png)
 
-Users requiring access to the Projects folder are added to this group.
+The idea was to manage access through the group rather than having to change folder permissions every time a user joins or leaves the project team.
 
 ---
 
 # Group Membership
 
-The user **Musa Ceesay** was assigned to the Project-Team group.
+The test user, **Musa Ceesay**, was added to the `Project-Team` group.
 
 ![Project Team Members](screenshots/project-team-members.png)
 
-This allows administrators to manage access centrally without modifying folder permissions for individual users.
+This means that the user's access to the Projects folder is based on their membership in this group.
 
 ---
 
-# NTFS Permission Configuration
+# NTFS Permissions
 
-NTFS permissions were configured on the Projects folder.
+I configured NTFS permissions on the `Projects` folder.
 
-![NTFS Permissions](screenshots/ntfs-permissions.png)
+The `Project-Team` group was given **Modify** access.
 
 | Group | Permission |
 |------|------|
@@ -134,7 +140,9 @@ NTFS permissions were configured on the Projects folder.
 | Project-Team | Modify |
 | CREATOR OWNER | Full Control |
 
-Permission inheritance from the parent directory was disabled to ensure only authorized groups could access the folder.
+![NTFS Permissions](screenshots/ntfs-permissions.png)
+
+I also disabled permission inheritance from the parent folder so that the access settings for this folder could be controlled separately.
 
 ---
 
@@ -146,7 +154,7 @@ Permission inheritance from the parent directory was disabled to ensure only aut
 |------|------|
 | Ticket ID | INC-1001 |
 | User | musaceesay |
-| Issue | Unable to access \\dc01\Projects |
+| Issue | Unable to access `\\dc01\Projects` |
 | Category | File Server Access |
 | Priority | Medium |
 
@@ -154,34 +162,39 @@ Permission inheritance from the parent directory was disabled to ensure only aut
 
 # Issue Reproduction
 
-To simulate the incident, the user was removed from the Project-Team security group.
+To reproduce the problem, I removed the user from the `Project-Team` security group.
 
-When the user attempted to access the shared folder from the client workstation:
+The user then tried to access:
 
-\\dc01\Projects
+`\\dc01\Projects`
 
-Windows returned an **Access Denied error**.
+Windows returned an **Access Denied** message.
 
 ![Access Denied Error](screenshots/access-denied.png)
 
+At this point, I had a clear starting point for the investigation.
+
 ---
 
-# Investigation Process
+# Investigation
 
-To troubleshoot the issue, I followed a step-by-step approach similar to how I would handle a real support ticket.
+I followed a simple troubleshooting process rather than immediately changing permissions.
 
-## Step 1 — Verify Network Connectivity
+## Step 1 — Check Network Connectivity
 
-I first checked if the client machine could communicate with the domain controller.
+First, I checked whether the client could communicate with the Domain Controller.
 
-Command used:
+I used:
+
+```powershell
 ping dc01.bpurple.com
+```
 
 ![Ping Test](screenshots/ping-test.png)
 
 Result: Successful
 
-This confirmed the issue was not related to network connectivity.
+This confirmed that the client could reach the server, so I could rule out a basic network connectivity problem.
 
 ---
 
@@ -189,19 +202,19 @@ This confirmed the issue was not related to network connectivity.
 
 Next, I tried accessing the shared folder directly using the UNC path:
 
-\\dc01\Projects
+`\\dc01\Projects`
 
-Result: Access Denied
+The result was **Access Denied**.
 
-At this point, I knew the issue was likely related to permissions rather than connectivity.
+Since the server was reachable but access to the folder was being denied, I focused the investigation on permissions and access control.
 
 ---
 
 ## Step 3 — Check NTFS Permissions
 
-I then checked the NTFS permissions on the Projects folder.
+I then checked the NTFS permissions on the `Projects` folder.
 
-I noticed that access was controlled through the Project-Team security group rather than individual users.
+I noticed that access was controlled through the `Project-Team` security group rather than individual users.
 
 ---
 
@@ -209,7 +222,7 @@ I noticed that access was controlled through the Project-Team security group rat
 
 Finally, I reviewed the user's group membership in Active Directory.
 
-I noticed the user was not part of the Project-Team group, which explains why access was denied.
+I noticed the user was not part of the `Project-Team` group, which explained why access was denied.
 
 This confirmed the root cause.
 
@@ -217,17 +230,17 @@ This confirmed the root cause.
 
 # Root Cause
 
-The issue was caused by the user not being part of the Project-Team security group.
+The issue was caused by the user not being part of the `Project-Team` security group.
 
-Since access to the folder was assigned to the group (and not directly to the user), removing the user from the group automatically removed their access.
+Since access to the folder was assigned through the group, removing the user from the group removed the access they needed.
 
 ---
 
 # Resolution
 
-To resolve the issue, I added the user back to the Project-Team security group.
+To resolve the issue, I added the user back to the `Project-Team` security group.
 
-I also verified that the share permissions were correctly configured for the group.
+I then checked the share and NTFS permissions again to make sure the configuration was still correct.
 
 ![Correct Share Permissions](screenshots/share-permissions-fixed.png)
 
@@ -237,22 +250,22 @@ I also verified that the share permissions were correctly configured for the gro
 
 After adding the user back to the group, I logged into the client machine again and tested access:
 
-\\dc01\Projects
+`\\dc01\Projects`
 
-![Acess Restored](screenshots/user-access-restored.png)
+![Access Restored](screenshots/user-access-restored.png)
 
-Result: Access successful
+The user was able to open the shared folder successfully.
 
-The user was able to open the shared folder without any issues.
+This confirmed that the issue had been resolved.
 
 ---
 
 # Troubleshooting Summary
 
 | Check | Purpose |
-|------|------|
-| ping dc01 | Verify network connectivity |
-| \\dc01\Projects | Confirm shared folder access |
+|---|---|
+| `ping dc01.bpurple.com` | Verify network connectivity |
+| `\\dc01\Projects` | Confirm shared folder access |
 | NTFS permissions | Verify authorized groups |
 | AD group membership | Identify missing permissions |
 
@@ -260,34 +273,35 @@ The user was able to open the shared folder without any issues.
 
 # Business Impact
 
-In a real environment, issues like this can prevent users from accessing important project files, which can delay work and impact productivity.
+In a real environment, an issue like this could prevent a user from accessing important project files and delay their work.
 
-Using security groups instead of assigning permissions directly to users makes access easier to manage and reduces the risk of errors like this.
+Using security groups instead of assigning permissions directly to individual users also makes access easier to manage, especially when users join or leave a team.
 
 ---
 
-## 🧠 Skills Demonstrated
+## Skills Demonstrated
 
-- Managed Active Directory users and security groups to control access to shared resources  
-- Configured a Windows Server file share to simulate a company file server  
-- Applied and reviewed NTFS permissions to manage folder access securely  
-- Used security groups instead of individual users to simplify permission management  
-- Investigated and resolved an “Access Denied” issue using a structured troubleshooting approach  
-- Verified connectivity, permissions, and group membership to identify the root cause  
+- Managed Active Directory users and security groups to control access to shared resources
+- Configured a Windows Server file share to simulate a company file server
+- Applied and reviewed NTFS permissions to manage folder access
+- Used security groups instead of individual users to simplify permission management
+- Investigated and resolved an **Access Denied** issue using a structured troubleshooting approach
+- Verified connectivity, permissions, and group membership to identify the root cause
 
 ---
 
 # Key Takeaway
 
-This lab showed me how important group-based access control is in Active Directory.
+This lab helped me understand how Active Directory group membership and NTFS permissions work together when managing access to shared folders.
 
-Instead of assigning permissions directly to users, using security groups makes access easier to manage and troubleshoot.
+It also reinforced a troubleshooting process that I can use for similar support issues:
 
-It also reinforced a simple troubleshooting approach I can reuse:
-1. Check connectivity  
-2. Test access  
-3. Review permissions  
-4. Check group membership  
+1. Check connectivity
+2. Test access
+3. Review permissions
+4. Check group membership
+5. Fix the issue
+6. Verify the result
 
 ---
 
@@ -295,6 +309,6 @@ It also reinforced a simple troubleshooting approach I can reuse:
 
 In this lab, I investigated and resolved a shared folder access issue in an Active Directory environment.
 
-The issue was caused by missing group membership, even though the share and NTFS permissions were configured correctly.
+The issue was caused by missing group membership, while the share and NTFS permissions were already configured for the appropriate access model.
 
-Working through this helped me better understand how file server access is managed through security groups and how to troubleshoot permission issues in a structured way.
+Working through the scenario helped me better understand how file server access is managed through security groups and how to approach an Access Denied issue step by step.
