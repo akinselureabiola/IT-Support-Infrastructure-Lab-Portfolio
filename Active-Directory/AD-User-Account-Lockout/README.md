@@ -8,6 +8,16 @@ The idea behind this was simple: replicate a situation where a user is unable to
 
 ---
 
+## Current Review
+
+I recently went back through this lab to refresh the troubleshooting process for Active Directory account lockouts.
+
+I worked through the scenario again from the user's perspective, starting with the login failure, checking the account status in Active Directory, resetting the password, unlocking the account, and then confirming that the user could complete the password change and log in successfully.
+
+I also reviewed the steps to make sure I understood what was happening at each stage rather than simply following the original lab instructions.
+
+---
+
 ## Ticket Overview (Jira)
 
 To simulate a real-world IT support workflow, I created and tracked this incident in a ticketing system (Jira).
@@ -183,21 +193,24 @@ Working through this scenario reinforced a few important points for me:
 
 ## Real-World Perspective
 
-This lab reflects a very common helpdesk situation:
+This is a common type of issue an IT Support team can receive.
 
-> A user reports they can’t log in, but the issue isn’t immediately obvious from their perspective.
+From the user's point of view, the problem may simply be:
 
-In practice, resolving this requires:
+> "I can't log in to my computer."
 
-* Checking account status in Active Directory
-* Understanding lockout policies
-* Taking corrective action (unlock + reset)
-* Verifying the fix from the user side
+From the support side, there can be several things to check before deciding what the problem is.
+
+In this lab, I practiced checking the account status in Active Directory, understanding the account lockout policy, resetting the password, unlocking the account, and then confirming the result from the user's side.
+
+The main thing I took from this was that a login problem should not automatically be treated as just a password problem. I need to check what is actually happening with the account before deciding on the right fix.
 
 ---
 
 ## Conclusion
 
-This exercise helped me build confidence in handling one of the most frequent support issues in a domain environment.
+This lab gave me hands-on practice with a very common Active Directory support scenario.
 
-Rather than just reading about account lockouts, I walked through the full process — from triggering the issue to resolving it — which gave me a clearer understanding of both the technical and practical sides of IT support.
+I was able to reproduce the account lockout, investigate the issue from the Domain Controller, reset the user's password, unlock the account, and verify that the user could successfully log in again.
+
+Going through the scenario again also helped me think about the process from a support perspective: understand the user's problem, check the account, make the appropriate change, verify the result, and document what was done.
