@@ -305,7 +305,7 @@ Managing user accounts properly helps ensure that users have the right access at
 
 # Skills Demonstrated
 
-## 🧠 Skills Demonstrated
+## Skills Demonstrated
 
 - Created and managed user accounts in Active Directory to simulate onboarding processes  
 - Performed password resets as part of a common helpdesk support scenario  
