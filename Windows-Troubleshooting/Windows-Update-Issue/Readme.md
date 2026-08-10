@@ -163,5 +163,3 @@ This lab showed me that not all update issues are caused by system errors.
 Sometimes the problem is simply that the system is running an outdated version that is no longer supported.
 
 It also reinforced the importance of checking the basics first before going deeper into troubleshooting.
-
-

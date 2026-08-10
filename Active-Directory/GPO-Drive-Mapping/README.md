@@ -1,4 +1,4 @@
-# 🚀 Group Policy Drive Mapping – Automated Network Drive Deployment
+# Group Policy Drive Mapping – Automated Network Drive Deployment
 
 In this lab, I set up automated network drive mapping using Group Policy in a Windows Server environment.
 
@@ -8,7 +8,18 @@ This is a common setup in enterprise environments where access needs to be consi
 
 ---
 
-## 📌 Lab Objective
+## Lab Refresh
+
+I revisited this Group Policy drive-mapping lab to refresh the workflow and verify how Group Policy, Active Directory security groups, and shared resources work together.
+
+Rather than simply repeating the original configuration steps, I focused on the support side of the process: identifying who should receive the drive, controlling access through group membership, applying the policy, and then verifying the result from the client machine.
+
+The review covered shared folder configuration, security group access, GPO drive mapping, item-level targeting, Group Policy updates, and client-side validation.
+
+---
+
+
+## Lab Objective
 
 The objective of this lab was to configure a Group Policy that automatically maps a shared network drive for specific users based on their security group membership.
 
@@ -16,40 +27,45 @@ This approach helps avoid manual setup on each device and ensures users get the 
 
 ---
 
-## 🧠 Real-World Scenario
+## Real-World Scenario
 
-I simulated a scenario where users in the HR department need access to a shared folder.
+I simulated a common IT Support request where HR users need access to a shared departmental folder.
 
-Instead of mapping the drive manually on each computer, I used Group Policy to automate the process so that users get the drive automatically when they log in.
+Instead of manually mapping the drive on each workstation, I configured Group Policy to provide the drive automatically to users who belong to the appropriate security group.
+
+This makes the setup easier to manage because access can be controlled centrally through Active Directory rather than configured separately on every computer.
 
 ---
 
-## Ticket Context (Simulated Support Case)
+## Ticket Context – Simulated Support Case
 
-For this lab, I approached it like a real support request.
+I approached this lab as a simulated IT Support request.
 
-A user from the HR department needed access to a shared folder, but instead of setting it up manually on each system, the goal was to provide a solution that works automatically for all users in that group.
+**Issue:** HR users need access to a shared departmental drive.
 
-## Ticket Summary
-Issue: HR users do not have access to shared drive
-Service: Active Directory / Group Policy
-Impact: Users unable to access shared departmental files
-Priority: Medium
-Status: Resolved
+**Service:** Active Directory / Group Policy
+
+**Impact:** Users are unable to access shared departmental files.
+
+**Priority:** P3 – Medium
+
+**Status:** Resolved
+
+The goal was not just to fix access for one user, but to create a solution that would automatically provide the correct drive to members of the HR group.
 
 ---
 
 ## Approach
 
-To handle this, I focused on creating a scalable solution instead of a one-time fix.
+I wanted to solve this as a repeatable IT administration task rather than manually mapping the drive on the client.
 
-I set up a Group Policy to automatically map the shared drive and used a security group to control who gets access.
+I created a shared folder, created a security group for users who should receive access, and then used Group Policy Preferences to map the folder as a network drive.
 
-This way, any user added to the group would receive the drive automatically without manual configuration.
+I also used item-level targeting so that the policy would only apply to users who belong to the `HR-Drive-Access` group.
 
 ---
 
-## 🖥️ Lab Environment
+## Lab Environment
 
 | System   | Role              | IP Address    |
 |----------|-------------------|---------------|
@@ -59,7 +75,7 @@ This way, any user added to the group would receive the drive automatically with
 
 ---
 
-## ⚙️ Technologies Used
+## Technologies Used
 
 - Active Directory Domain Services (AD DS)
 - Group Policy Management (GPMC)
@@ -68,7 +84,7 @@ This way, any user added to the group would receive the drive automatically with
 
 ---
 
-## 🔧 Configuration Steps
+## Configuration Steps
 
 ### 1. Create Shared Folder
 
@@ -102,7 +118,7 @@ I then created a new Group Policy Object (GPO) called "Map HR Drive" to handle t
 
 ---
 
-### 4. Drive Mapping Configure
+### 4. Configure Drive Mapping
 
 Inside the GPO, I configured the drive mapping using the following settings:
 
@@ -139,61 +155,55 @@ bpurple.com
 
 ---
 
-### 7. Testing & Validation Section
+### 7. Testing and Validation
 
-To test the configuration, I logged into the client machine and forced a Group Policy update:
+To test the configuration, I logged into the client machine and forced a Group Policy update using:
 
-gpupdate /force  
+```text
+gpupdate /force
+```
+I then logged off and back in and checked This PC to verify whether the H: drive appeared.
 
-After logging off and back in, I checked "This PC" to confirm whether the drive was mapped.
+This gave me a simple way to confirm that the policy was being applied to the intended user.
 
 ---
 
-## ✅ Result
+## Result
 
-The HR drive (H:) was automatically mapped for the user.The HR drive (H:) appeared automatically on the client machine after login.
+After the Group Policy update and a new login, the H: drive appeared automatically on the client machine.
 
-This confirmed that the Group Policy and security group targeting were working as expected.
+This confirmed that the drive mapping, security group membership, and item-level targeting were working together as expected.
 
 ![Mapped Drive](./screenshots/hr-drive-mapped.png)
 
 ---
 
-## 🔍 Troubleshooting Section
+## Troubleshooting
 
-To troubleshoot the issue, I checked a few key things:
+During testing, I approached the drive-mapping issue step by step rather than immediately changing the GPO.
 
-- I verified that the user was added to the HR-Drive-Access group  
-- I forced a Group Policy update using gpupdate /force  
-- I logged off and back on to allow the policy to apply  
+I checked the following:
 
-After these steps, the drive appeared correctly.
+- Confirmed the user was a member of the `HR-Drive-Access` security group
+- Forced a Group Policy update using `gpupdate /force`
+- Logged off and back in to allow the policy to apply
+- Checked **This PC** to verify whether the H: drive appeared
 
-This reminded me that Group Policy changes often require a logoff/logon cycle before they take effect.
+After completing these checks, the H: drive appeared correctly on the client machine.
+
+The main takeaway for me was that when a Group Policy configuration does not appear immediately, it is worth checking the user's group membership and policy application before changing the configuration itself.
 
 ### Resolution
 
-To resolve the issue, I checked the most likely causes step by step.
-
-First, I confirmed that the user was part of the **HR-Drive-Access** security group, since access to the drive is controlled through group membership.
-
-Next, I forced a Group Policy update using:
-
-gpupdate /force  
-
-After that, I logged off and back on to allow the policy to apply properly.
+The issue was resolved by confirming the user's group membership, refreshing Group Policy, and starting a new login session.
 
 ### Outcome
 
-After logging back in, the HR drive (H:) appeared automatically on the client machine.
-
-This confirmed that the GPO and security group targeting were working as expected.
-
-This also reminded me that Group Policy changes often require a logoff/logon cycle before they fully take effect.
+The H: drive was successfully mapped to the client machine for the intended user.
 
 ---
 
-## 📊 Business Impact
+## Business Impact
 
 In a real environment, setting this up manually on each computer would take time and could lead to errors.
 
@@ -201,35 +211,50 @@ Using Group Policy makes the process automatic, consistent, and easier to manage
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
-Access to the shared folder is controlled using security groups instead of assigning permissions directly to users.
+I used the `HR-Drive-Access` security group to control who receives the mapped drive instead of assigning access to individual users.
 
-This makes it easier to manage access and reduces the risk of giving the wrong permissions. 
+This makes the configuration easier to manage because access can be changed by updating group membership rather than modifying the GPO for each user.
 
----
-
-## 🧠 Skills Demonstrated
-
-- Configured Group Policy to automate drive mapping across domain users  
-- Used Active Directory security groups to control access to shared resources  
-- Implemented network drive mapping using GPO preferences  
-- Applied item-level targeting to restrict access based on group membership  
-- Troubleshot Group Policy issues using gpupdate and login cycle testing  
-- Worked with Windows Server tools to manage users, groups, and policies  
+It also reinforces the principle of giving users access based on their role and responsibilities.
 
 ---
 
-## 💡 Key Takeaway
+## IT Support Takeaway
 
-This lab showed me how powerful Group Policy can be for automating user access.
+This lab reinforced that solving an access issue is not always about changing the user's computer.
 
-Instead of configuring each system manually, using GPO with security groups makes access easier to manage, more consistent, and less prone to errors.
+In this case, the user's access depended on several pieces working together: Active Directory group membership, the shared folder, the Group Policy configuration, and the client receiving the policy.
+
+That gave me a better understanding of how I would approach a similar ticket in a real support environment: check the user's access, verify the relevant group and policy, make the required change, and then confirm the result from the user's side.
 
 ---
 
-## ✅ Conclusion
+## Skills Demonstrated
 
-Overall, this lab helped me understand how drive mapping is handled in real enterprise environments.
+- Configured Group Policy Preferences to automatically map network drives
+- Used Active Directory security groups to control access to shared resources
+- Configured item-level targeting to apply the drive mapping to the intended users
+- Worked with shared folders and NTFS/share permissions
+- Used `gpupdate /force` to refresh Group Policy during troubleshooting
+- Verified Group Policy results from the Windows client
+- Applied a structured troubleshooting process to an access-related support scenario  
 
-It reinforced how Group Policy and security groups work together to automate access and reduce manual work for IT teams.
+---
+
+## Key Takeaway
+
+The biggest thing I took from this lab was seeing how Group Policy can turn what would normally be a repetitive support task into an automated process.
+
+Instead of manually configuring a drive on every workstation, I could use Group Policy and security group membership to control who receives the resource.
+
+It also reinforced that when something doesn't appear as expected, I need to check the user's group membership, policy application, and login state before assuming the GPO itself is broken.
+
+---
+
+## Conclusion
+
+Overall, this lab gave me practical experience with using Group Policy and Active Directory security groups to automate access to a shared resource.
+
+It also gave me another opportunity to practise approaching a configuration issue from an IT Support perspective: identify the issue, check the relevant configuration, apply the fix, and verify the result.
