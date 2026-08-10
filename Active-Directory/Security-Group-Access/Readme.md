@@ -1,4 +1,31 @@
-# Security Group Access (Shared Folder Permission Issue)
+# Security Group Access – Shared Folder Permission Troubleshooting
+
+In this lab, I worked through a simulated IT support ticket where a user was unable to access a departmental shared folder.
+
+The interesting part wasn't simply fixing the access. I wanted to approach it like a real support investigation: start with the basic connectivity checks, confirm the shared resource was available, review permissions, and then investigate the user's Active Directory group membership.
+
+The issue turned out to be a simple one — the user was missing the security group that granted access to the Finance share.
+
+This lab helped reinforce an important troubleshooting habit: don't assume the problem is where the error message points. Work through the possible causes and eliminate them one by one.
+
+---
+
+## Lab Refresh
+
+I revisited this lab to refresh the troubleshooting workflow and validate the access-control process again.
+
+Rather than simply repeating the original configuration, I focused on the investigation side of the problem:
+
+- Confirming the client could communicate with the Domain Controller
+- Confirming the shared folder was available
+- Checking the access-denied behaviour
+- Reviewing the user's security group membership
+- Correcting the missing group membership
+- Re-testing access after the change
+
+The main goal was to make the lab reflect how I would approach a real IT Support access issue rather than treating it as just an Active Directory configuration exercise.
+
+---
 
 ## Ticket Information
 
@@ -21,21 +48,27 @@ This is a common access control issue in Active Directory environments, usually 
 
 ---
 
-## Environment
+## Lab Environment
 
-- **Domain:** bpurple.com  
-- **Domain Controller:** DC01 (192.168.10.10)  
-- **Client Machine:** CLIENT01 (Domain-joined)  
-- **Shared Folder Path:** \\DC01\Finance-Share  
-- **Security Group:** Finance-Access  
-- **Virtualization:** VirtualBox (Internal Network + NAT)  
-- **DNS Server:** 192.168.10.10  
+| Component | Configuration |
+|---|---|
+| Domain | bpurple.com |
+| Domain Controller | DC01 |
+| Domain Controller IP | 192.168.10.10 |
+| Client | CLIENT01 |
+| Shared Folder | `\\DC01\Finance-Share` |
+| Security Group | Finance-Access |
+| Virtualization | VirtualBox |
+| Network | Internal Network + NAT |
+| DNS Server | 192.168.10.10 |
 
 ---
 
-## Network Architecture Diagram
+### Network Architecture
 
-![Active Directory Lab Network Architecture](ad-lab-network-architecture.png)
+The lab used a VirtualBox internal network for communication between the Domain Controller and client machine, with NAT providing internet connectivity where required.
+
+![AD Lab Network Architecture](./screenshots/ad-lab-network-architecture.png)
 
 ---
 
@@ -50,22 +83,21 @@ This is a common access control issue in Active Directory environments, usually 
 
 ## Initial Symptoms
 
-On CLIENT01, I tried accessing the shared folder:
+The simulated user reported that they were unable to access the Finance shared folder.
 
-\\DC01\Finance-Share  
+I tested the network path:
 
-Result: Access Denied  
+```text
+\\DC01\Finance-Share
+```
 
-![Access Denied Error](File-access-denied.png) 
+The client could see the server and shared resources, but attempting to open the Finance share resulted in:
 
-To rule out network or DNS issues, I tested connectivity:
+Access Denied  
 
-ping 192.168.10.10  
-ping dc01.bpurple.com  
+![Access Denied Error](./screenshots/File-access-denied.png) 
 
-Both tests were successful, confirming the issue was not related to connectivity.
-
-![Successful Connectivity Test](Successful-network-connectivity.png)
+At this point, I didn't assume the problem was immediately related to Active Directory permissions. I first wanted to rule out a basic connectivity problem.
 
 ---
 
@@ -79,122 +111,156 @@ Even though the issue affected only one user, it still impacted productivity and
 
 ---
 
-## Investigation Steps
+## Investigation
 
-I followed a step-by-step approach to isolate the issue, starting from basic checks and moving toward access control validation.
+I followed a structured troubleshooting approach to isolate the issue, starting with basic connectivity checks and gradually moving toward access control validation.
 
 ### Step 1 — Validate Network Connectivity
 
+I first confirmed that CLIENT01 could communicate with the Domain Controller.
+
 I executed:
 
-    ping 192.168.10.10
+```powershell
+ping 192.168.10.10
+```
 
-Result: Successful  
+**Result:** Successful
 
-![Successful Connectivity Test](Successful-network-connectivity.png)
+The successful response confirmed network communication with the Domain Controller, so I could rule out a basic connectivity problem.
 
-Confirmed network communication with Domain Controller.
+![Successful Network Connectivity](./screenshots/Successful-network-connectivity.png)
 
 ---
 
 ### Step 2 — Validate Share Availability
 
-Accessed shared folder from another user account.
+Next, I checked whether the shared resource itself was available.
 
-Result: Successful  
+I accessed the Finance share from another user account.
 
-I confirmed that the shared folder and server were operational.
+**Result:** Successful
 
-![Access Working for Other User](File-Access-granted.png)
+The shared folder opened successfully, confirming that the server and shared resource were operational.
+
+This helped narrow the issue down to the affected user's access rather than a problem with the file server or shared folder itself.
 
 ---
 
 ### Step 3 — Review Share and NTFS Permissions
 
-On DC01:
+I then reviewed the permissions configured for the Finance shared folder on DC01.
 
-Opened:
+The intended access configuration was:
 
-    C:\Finance → Properties → Sharing → Advanced Sharing
-    Security Tab → NTFS Permissions
+- Share permissions assigned through the **Finance-Access** security group
+- NTFS permissions assigned through the **Finance-Access** security group
+- Access managed through group membership rather than individual user permissions
 
-Verified:
-
-- Share permissions assigned to: Finance-Access (Modify)
-- NTFS permissions assigned to: Finance-Access (Modify)
-- No direct user permissions configured
-
-Everything looked correct at the permission level, so I moved on to check group membership.
+The permissions appeared to be correctly configured, so I moved on to checking the affected user's Active Directory group membership.
 
 ---
 
-### Step 4 — Verify Group Membership
+### Step 4 — Verify Security Group Membership
 
-Opened:
+I opened:
 
-    Active Directory Users and Computers
+```text
+Active Directory Users and Computers
+```
 
-Navigated to:
+and checked the user's membership in the relevant security groups.
 
-    Finance-Access Security Group
+The user was **not a member of the Finance-Access security group**.
 
-Checked membership.
+![User Without Required Group Access](./screenshots/No-Group-Access.png)
 
-![User Not in Security Group](No-Group-Access.png)
-
-I noticed that the user was not listed as a member of the Finance-Access group.
-
-At this point, the root cause became clear.
+At this point, the cause of the Access Denied error became clear.
 
 ---
 
 ## Root Cause
 
-The issue occurred because the user was not part of the Finance-Access security group, which controls access to the shared folder.
+The user was unable to access the Finance shared folder because they were missing membership in the **Finance-Access** security group.
 
-Even though the permissions were correctly configured, the user could not access the folder because they were missing the required group membership.
+The shared folder was configured to use group-based access control, so the user did not receive the required permissions until they were added to the appropriate group.
+
+This was a useful reminder that an **Access Denied** error does not always mean the permissions themselves are incorrectly configured. The user's security group membership also needs to be checked.
 
 ---
 
 ## Resolution
 
-To fix the issue, I added the user to the Finance-Access security group in Active Directory.
+To resolve the issue, I added the affected user to the **Finance-Access** security group in Active Directory.
 
-After making the change, I asked the user to log off and log back in so their access token could refresh.
+![Finance Access Group Membership](./screenshots/Group-Access-granted.png)
 
-![User Added to Security Group](Group-Access-granted.png)
+After making the change, I logged the user off and back in so that their updated group membership could be reflected in their authentication session.
 
 ---
 
 ## Verification
 
-After the user logged back in, I tested access again:
+After the user logged back in, I tested the same network path again:
 
-\\DC01\Finance-Share  
+```text
+\\DC01\Finance-Share
+```
 
-![Access Restored](File-Access-granted.png)
+The Finance share opened successfully and the user could access the folders inside it.
 
-The folder opened successfully without any errors.
+![Finance Share Access Restored](./screenshots/File-Access-granted.png)
 
-This confirmed that the issue was resolved and access was restored.
+This confirmed that the group membership change resolved the issue and restored the user's access.
+
+---
+
+## Troubleshooting Summary
+
+| Check | Result | Finding |
+|---|---|---|
+| Network connectivity | Successful | CLIENT01 could communicate with DC01 |
+| Shared folder availability | Successful | Finance share was operational |
+| Share and NTFS configuration | Validated | Access was controlled through Finance-Access |
+| Security group membership | Failed | User was missing Finance-Access membership |
+| Access after correction | Successful | User could access the Finance share |
+
+This troubleshooting process helped narrow the problem down from a possible network or server issue to an identity and access-control issue.
 
 ---
 
 ## Skills Demonstrated
 
-- Managed Active Directory users and security groups to control access to shared folders  
-- Compared and verified Share and NTFS permissions to understand access behavior  
-- Used security group-based access control instead of assigning permissions directly to users  
-- Investigated and resolved an “Access Denied” issue using a structured troubleshooting approach  
-- Verified network connectivity, permissions, and group membership to identify the root cause  
-- Applied understanding of authentication and group membership updates during troubleshooting  
+- Troubleshot a simulated **Access Denied** issue using a structured IT Support workflow
+- Verified network connectivity before investigating access permissions
+- Used **Active Directory Users and Computers (ADUC)** to check security group membership
+- Used security groups to control access to shared departmental resources
+- Investigated the difference between connectivity issues and identity/access issues
+- Reviewed Share and NTFS permissions as part of access troubleshooting
+- Resolved an access issue by adding the user to the appropriate security group
+- Verified access before and after making an administrative change
+- Documented the investigation, root cause, resolution, and verification process
 
 ---
 
 ## Key Takeaway
 
-This lab reinforced how important security groups are in managing access within an Active Directory environment.
+The biggest lesson from this lab was the value of troubleshooting in a structured order.
 
-It also showed me that when troubleshooting access issues, it’s important to follow a structured approach — starting from connectivity checks and moving toward permissions and group membership.
+When I saw the **Access Denied** message, it would have been easy to immediately start changing permissions. Instead, I worked through connectivity, resource availability, permissions, and finally group membership.
 
-In many cases, the issue is not the permissions themselves, but whether the user is actually part of the group that grants access.
+The actual fix was simple: add the user to the correct security group.
+
+The investigation was the important part.
+
+It reinforced for me that good IT Support is not just about knowing which setting to change. It is about narrowing down the problem, identifying the actual cause, and making the smallest appropriate change to resolve it.
+
+---
+
+## Conclusion
+
+This lab gave me another opportunity to practise a common IT Support scenario: a user has network connectivity and the shared resource is available, but the user still cannot access it.
+
+By checking each layer separately, I was able to identify that the problem was not connectivity or the shared resource itself, but missing security group membership.
+
+It also reinforced how Active Directory security groups can be used to manage access consistently instead of assigning permissions directly to individual users.
