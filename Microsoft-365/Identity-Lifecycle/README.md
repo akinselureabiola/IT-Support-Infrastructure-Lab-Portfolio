@@ -1,8 +1,6 @@
 # Microsoft 365 Identity Lifecycle Automation Lab (Enterprise Simulation)
 
-## 🚀 Project Summary
-
-## 🚀 Project Summary
+##  Project Summary
 
 In this lab, I simulated a real-world Microsoft 365 onboarding and offboarding process using Microsoft Graph PowerShell.
 
@@ -17,7 +15,7 @@ This project demonstrates hands-on experience in:
 
 ---
 
-## 📌 Overview
+## Overview
 
 In most organizations, IT teams manage the full lifecycle of user accounts — from onboarding new employees to securely removing access when they leave.
 
@@ -43,7 +41,7 @@ Later, the employee leaves the organization, and all access is revoked securely.
 
 ---
 
-## 🎫 Simulated Helpdesk Ticket
+## Simulated Helpdesk Ticket
 
 **Title:** New User Onboarding – Finance Department  
 **Priority:** P3  
@@ -60,7 +58,7 @@ Provision a Microsoft 365 account, assign appropriate license, and grant access 
 
 ---
 
-## 🎯 Objectives
+## Objectives
 
 In this lab, my goal was to automate and validate the full user lifecycle in Microsoft 365.
 
@@ -74,7 +72,7 @@ Specifically, I aimed to:
 
 ---
 
-## ⚙️ Tools & Technologies
+## Tools & Technologies
 
 * Microsoft 365 Admin Center
 * Microsoft Graph PowerShell
@@ -83,7 +81,7 @@ Specifically, I aimed to:
 
 ---
 
-# 🚀 Onboarding Workflow (Joiner Process)
+#  Onboarding Workflow (Joiner Process)
 
 ---
 
@@ -91,7 +89,7 @@ Specifically, I aimed to:
 
 A new enterprise user account is created with required attributes.
 
-📸 **Screenshot: User Created in Admin Portal**
+ **Screenshot: User Created in Admin Portal**
 
 ![User Created](./screenshots/user-created.png)
 
@@ -121,7 +119,7 @@ The user is added to the Finance-Team group to simulate role-based access contro
 
 The usage location is set to enable license assignment.
 
-📸 **Screenshot: Usage Location Set**
+ **Screenshot: Usage Location Set**
 
 ![Usage Location](./screenshots/usage-location.png)
 
@@ -131,11 +129,11 @@ The usage location is set to enable license assignment.
 
 A Microsoft 365 Business license is assigned to the user.
 
-📸 **Screenshot: License Assigned (Admin Portal)**
+ **Screenshot: License Assigned (Admin Portal)**
 
 ![License Assigned](./screenshots/license-assigned.png)
 
-📸 **Screenshot: License Verification via PowerShell**
+ **Screenshot: License Verification via PowerShell**
 
 ![License PowerShell](./screenshots/license-powershell.png)
 
@@ -151,7 +149,7 @@ All onboarding steps are validated using PowerShell queries.
 
 ---
 
-# 🔴 Offboarding Workflow (Leaver Process)
+# Offboarding Workflow (Leaver Process)
 
 ---
 
@@ -159,7 +157,7 @@ All onboarding steps are validated using PowerShell queries.
 
 All assigned licenses are removed from the user.
 
-📸 **Screenshot: License Removed**
+ **Screenshot: License Removed**
 
 ![License Removed](./screenshots/license-removed.png)
 
@@ -207,7 +205,7 @@ These issues helped me understand how Microsoft 365 behaves in real environments
 
 ---
 
-## 🛠️ Troubleshooting Approach
+## Troubleshooting Approach
 
 To resolve the issues, I verified each step using Microsoft Graph PowerShell:
 
@@ -220,7 +218,7 @@ This step-by-step validation helped ensure that all actions were completed corre
 
 ---
 
-## ✅ Validation Checklist
+## Validation Checklist
 
 After completing the onboarding and offboarding process, I verified the following:
 
@@ -233,11 +231,12 @@ After completing the onboarding and offboarding process, I verified the followin
 
 ---
 
-# 📂 Project Structure
+# Project Structure
 
 The project is organized into separate scripts for onboarding and offboarding:
 
 ``` id="kw8rf5"
+```
 identity-lifecycle/
 ├── onboarding.ps1     # Handles user creation, licensing, and group assignment  
 ├── offboarding.ps1    # Handles license removal, group cleanup, and account disable  
@@ -246,7 +245,7 @@ identity-lifecycle/
 
 ---
 
-# 🧠 Skills Demonstrated
+# Skills Demonstrated
 
 - Automated user onboarding and offboarding using Microsoft Graph PowerShell  
 - Created and managed Microsoft 365 user accounts in a simulated enterprise environment  
@@ -257,7 +256,7 @@ identity-lifecycle/
 
 ---
 
-# 🔍 Key Learnings
+# Key Learnings
 
 - Microsoft Graph often requires explicit property selection to return accurate results  
 - Usage location must be set before assigning licenses  
@@ -267,7 +266,7 @@ identity-lifecycle/
 
 ---
 
-# 💡 Real-World Relevance
+# Real-World Relevance
 
 This project reflects the type of tasks handled daily in IT support and Microsoft 365 administration.
 
@@ -277,7 +276,7 @@ Working through this lab helped me understand how these processes are handled in
 
 ---
 
-# 📈 Future Improvements
+# Future Improvements
 
 To improve this project further, I plan to:
 
@@ -288,7 +287,7 @@ To improve this project further, I plan to:
 
 ---
 
-## 🧠 Conclusion
+## Conclusion
 
 In this lab, I implemented a full Microsoft 365 identity lifecycle workflow, covering both onboarding and offboarding.
 
