@@ -1,10 +1,10 @@
 
-# 📧 Exchange Online Incident Investigation
+# Exchange Online Incident Investigation
 ## Mail Not Delivered from Gmail (Mail Flow Rule Misconfiguration)
 
 ---
 
-# 🧾 Incident Summary
+# Incident Summary
 
 In this lab, I investigated an issue where emails sent from Gmail accounts were not being delivered to a Microsoft 365 mailbox, while internal emails were working normally.
 
@@ -14,7 +14,7 @@ I resolved the issue by identifying and disabling the misconfigured rule, which 
 
 ---
 
-# 🎫 Ticket Information
+# Ticket Information
 
 | Field | Details |
 |-----|-----|
@@ -29,7 +29,7 @@ I resolved the issue by identifying and disabling the misconfigured rule, which 
 
 ---
 
-# 🖥 Environment
+# Lab Environment
 
 | Component | Details |
 |------|------|
@@ -43,13 +43,13 @@ I resolved the issue by identifying and disabling the misconfigured rule, which 
 
 ---
 
-# 🚨 User Report
+# User Report
 
 A user reported that they were not receiving emails from Gmail addresses.
 
 ---
 
-# 🔎 Initial Symptoms
+# Initial Symptoms
 
 Observed behaviour:
 
@@ -68,7 +68,7 @@ Email Sent → No Delivery
 
 ---
 
-# 💼 Business Impact
+# Business Impact
 
 In a real environment, this issue would prevent users from receiving emails from Gmail accounts, which could disrupt communication with clients or external partners.
 
@@ -78,7 +78,7 @@ Even though the issue affected only external mail flow, it had a high impact due
 
 ---
 
-# 🧪 Investigation Process
+# Investigation Process
 
 I followed a structured troubleshooting approach, starting with basic checks and then moving deeper into mail flow analysis.
 
@@ -163,7 +163,7 @@ Since the rule was enabled, Exchange Online was rejecting all emails coming from
 
 ---
 
-# 🧠 Root Cause
+# Root Cause
 
 The issue was caused by a transport rule that was configured to block emails from the domain:
 
@@ -175,7 +175,7 @@ This confirmed that the issue was related to configuration, not mailbox or user 
 
 ---
 
-# 🛠 Resolution
+# Resolution
 
 To resolve the issue, I navigated to the Exchange Admin Center and located the mail flow rule named:
 
@@ -189,7 +189,7 @@ This allowed emails from Gmail to pass through the transport pipeline normally.
 
 ---
 
-# ✅ Verification
+# Verification
 
 After disabling the rule, I tested the fix by sending another email from a Gmail account.
 
@@ -201,7 +201,7 @@ This confirmed that the issue was resolved.
 
 ---
 
-# 🧠 Lessons Learned
+# Lessons Learned
 
 This lab showed me how powerful mail flow rules are in Exchange Online and how they can impact email delivery if not configured correctly.
 
@@ -211,7 +211,7 @@ Following a structured approach made it easier to isolate the issue and identify
 
 ---
 
-# 🛠 Skills Demonstrated
+# Skills Demonstrated
 
 - Investigated email delivery issues in Exchange Online using Message Trace  
 - Identified and analyzed mail flow (transport) rules affecting message delivery  
