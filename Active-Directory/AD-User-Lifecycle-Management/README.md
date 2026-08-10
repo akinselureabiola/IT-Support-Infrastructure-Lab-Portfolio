@@ -1,10 +1,22 @@
-# Active Directory User Lifecycle Management – User Account Operations
+# Active Directory User Lifecycle Management – Account Provisioning, Access & Troubleshooting
 
 In this lab, I worked through common Active Directory user management tasks in a simulated enterprise environment.
 
 The goal was to practice real helpdesk activities like creating user accounts, resetting passwords, disabling accounts, and assigning security group access.
 
 These are the kind of tasks handled daily in IT support, especially when onboarding new users, troubleshooting login issues, or offboarding employees.
+
+---
+
+## Lab Refresh – August 2026
+
+I revisited this Active Directory user-management lab to refresh the workflow and verify the key operations again.
+
+Rather than simply repeating the original steps, I focused on how these tasks would be handled from an IT Support perspective: identifying the user issue, checking account status and group membership, making the appropriate change, and verifying the result.
+
+The refreshed walkthrough covered user creation, password reset, account disablement, security group membership, and validation of the resulting account state.
+
+This review also reinforced the importance of troubleshooting the user's access issue before making changes, rather than immediately assuming the cause.
 
 ---
 
@@ -171,24 +183,37 @@ Security groups allow administrators to control access to:
 
 # Example Helpdesk Incident
 
-**Ticket:** User Unable to Access Finance Shared Folder  
+**Ticket:** User Unable to Access Finance Shared Folder
 
-**Issue Reported:**  
+**Issue Reported:**
+
 User reported that they were unable to access the department finance shared folder.
 
-**Investigation:**  
+**Initial Investigation:**
 
-During the investigation, I checked the user’s group membership and noticed they were not part of the Finance-Access group.
+Rather than immediately changing permissions, I first checked the user's Active Directory account and access configuration.
 
-Since access to the shared folder is controlled by this group, this explained why the user could not access the resource.
+I verified:
+
+- The user account existed in Active Directory
+- The account status was correct
+- The user's security group membership was checked
+- The required `Finance-Access` group was identified as the group controlling access to the resource
+
+**Finding:**
+
+The user was not a member of the `Finance-Access` security group.
 
 **Resolution:**
 
-- Added user to **Finance-Access** security group
+- Added the user to the `Finance-Access` security group
+- Verified the updated group membership
 - User logged off and logged back in
-- Access to finance shared resources restored
+- Access to the finance shared resource was restored
 
-This scenario reflects a common **Active Directory access control issue handled by IT support teams.**
+**Troubleshooting Lesson:**
+
+This reinforced the importance of checking account status and group membership before making permission changes. A structured troubleshooting process helps identify the actual cause instead of changing settings unnecessarily.
 
 ---
 
@@ -225,26 +250,34 @@ This model reflects the operational identity management processes used by enterp
 
 ---
 
-# Validation
+# Verification
 
-After completing the operations, the following checks were performed:
+After completing the account-management operations, I verified the resulting configuration in Active Directory.
 
-- Confirm user account exists in Active Directory
-- Verify security group membership
-- Confirm account disabled status
+| Validation | Result |
+|---|---|
+| User account creation | Successful |
+| Password reset | Successful |
+| Security group assignment | Successful |
+| Account disable operation | Successful |
+| Account status verification | Confirmed |
+
+The verification step reinforced that completing an administrative action is only part of the process. The result should also be checked to confirm that the expected configuration was applied.
 
 ---
 
-# Verification
+# IT Support Takeaway
 
-The following validations were performed to confirm the operations:
+This lab reinforced a simple troubleshooting approach for Active Directory issues:
 
-| Validation | Result |
-|------|------|
-| User account creation | Successful |
-| Password reset | Successful |
-| Account disable operation | Successful |
-| Security group assignment | Successful |
+1. Identify the user's reported problem
+2. Check the user's account status
+3. Check relevant security group membership
+4. Make the appropriate administrative change
+5. Verify the result
+6. Confirm that the user's access or authentication issue is resolved
+
+This approach helps avoid making unnecessary changes and provides a repeatable process for handling common identity and access tickets.
 
 ---
 
