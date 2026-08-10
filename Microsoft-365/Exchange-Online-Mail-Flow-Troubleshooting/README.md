@@ -8,6 +8,16 @@ Instead of assuming it was an Outlook issue, I approached it the same way I woul
 
 ---
 
+## Lab Refresh
+
+I revisited this Microsoft 365 support scenario to refresh the troubleshooting workflow and focus more on how I would approach an email issue from an IT Support perspective.
+
+Rather than assuming Outlook itself was the problem, I worked through the account, mailbox, and message-level checks to narrow down the cause.
+
+The refreshed workflow focused on confirming the user's Microsoft 365 access, checking mailbox status and storage, reviewing the message behaviour, identifying the attachment size limitation, and validating the resolution.
+
+---
+
 ## Ticket Summary
 
 Title: Emails are not sending
@@ -65,7 +75,7 @@ That told me the issue was likely **message-specific rather than system-wide**
 
 I reviewed the email more closely and identified the issue:
 
-The attachment size exceeded the allowed limit configured in Exchange Online
+The attachment exceeded the configured message-size limit, preventing the email from being sent.
 
 From the mail flow settings:
 
