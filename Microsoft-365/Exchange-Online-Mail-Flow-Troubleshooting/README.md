@@ -1,6 +1,6 @@
 # Microsoft 365 Mail Flow Issue — Attachment Size Limitation
 
-## 🧾 Overview
+## Overview
 
 I simulated a real-world support scenario where a user reported that they could access Outlook but were unable to send emails.
 
@@ -8,7 +8,7 @@ Instead of assuming it was an Outlook issue, I approached it the same way I woul
 
 ---
 
-## 🎫 Ticket Summary
+## Ticket Summary
 
 Title: Emails are not sending
 Category: Exchange Online / Email
@@ -22,7 +22,7 @@ Status: Resolved
 
 ---
 
-## 🔍 Investigation
+## Investigation
 
 The first thing I did was avoid jumping to conclusions. Since the user could access Outlook, I knew this wasn’t an authentication or login issue.
 
@@ -61,7 +61,7 @@ That told me the issue was likely **message-specific rather than system-wide**
 
 ---
 
-### 🔎 Root Cause
+### Root Cause
 
 I reviewed the email more closely and identified the issue:
 
@@ -76,7 +76,7 @@ Because of this, the message could not be processed for delivery.
 
 ---
 
-## 🛠️ Resolution
+## Resolution
 
 To resolve the issue, I:
 
@@ -88,7 +88,7 @@ After this, the user was able to send emails successfully.
 
 ---
 
-## 📸 Screenshots Included
+## Screenshots Included
 
 * Mail flow settings showing attachment size limits
 
