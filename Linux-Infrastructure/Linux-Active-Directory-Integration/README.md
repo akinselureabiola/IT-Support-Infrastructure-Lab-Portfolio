@@ -1,6 +1,10 @@
-# Linux Server Integration – Active Directory Domain Environment
+# Linux Server Integration – Active Directory Domain Environment Preparation
 
-This lab demonstrates how a Linux server can be prepared for integration with a Windows Active Directory domain by validating DNS configuration, network connectivity, and domain discovery prerequisites.
+This lab demonstrates how I prepared a Linux server for integration with a Windows Active Directory environment.
+
+I focused on the prerequisites that need to be working before attempting a domain join: network configuration, DNS, connectivity, hostname configuration, and Active Directory DNS resolution.
+
+The lab was built in VirtualBox using an Ubuntu Server 24.04 LTS virtual machine connected to the same internal network as the Windows Domain Controller.
 
 ## Ticket Information
 
@@ -63,18 +67,15 @@ Network Range: 192.168.10.0/24
 
 # Network Architecture
 
-![Architecture](./screenshots/lab-network-architecture.png)
+The lab environment was built on a VirtualBox internal network called **LABNET** using the `192.168.10.0/24` address range.
 
+The environment consisted of:
 
-This diagram illustrates the structure of the lab environment.
+- **DC01** – Windows Server Domain Controller
+- **CLIENT01** – Windows domain-joined client
+- **LINUX-SRV01** – Ubuntu Server prepared for Active Directory integration
 
-It shows the relationship between:
-
-- **DC01** (Domain Controller)
-- **CLIENT01** (Windows domain client)
-- **LINUX-SRV01** (Linux server)
-
-All systems communicate within the **192.168.10.0/24 LABNET internal network**.
+![Linux Server Integration Network Architecture](./screenshots/lab-network-architecture.png)
 
 ---
 
@@ -267,26 +268,23 @@ Successful discovery verifies that the Linux server can communicate with Active 
 
 ---
 
-# Domain Join
+# Next Step – Active Directory Domain Join
 
-Once the Linux server successfully discovers the Active Directory domain, the next step is joining the system to the domain.
+With the Linux server's hostname, network connectivity, DNS configuration, and Active Directory name resolution validated, the environment is prepared for the next stage: joining the Linux server to the domain.
 
-Command used for domain join:
+The expected next step would be:
 
 ```bash
-sudo realm join bpurple.com
 ```
+realm discover bpurple.com
 
-During the join process, the system requests credentials from a domain administrator with permission to add computers to the domain.
+followed by a domain join using:
 
-Successful domain integration enables:
+sudo realm join bpurple.com
 
-* Active Directory authentication for Linux logins
-* Centralized identity management
-* Kerberos-based authentication
-* SSSD-based user identity services
+I did not treat the domain join as completed in this lab because the focus of this exercise was validating the infrastructure prerequisites required before attempting the join.
 
-This lab focused on validating the infrastructure prerequisites required before performing a domain join operation.
+This separation helped me understand an important troubleshooting principle: before performing a major configuration change, first make sure the underlying network and DNS requirements are working correctly.
 
 ---
 
@@ -295,14 +293,16 @@ This lab focused on validating the infrastructure prerequisites required before 
 During validation, the following checks were performed:
 
 | Check | Purpose |
-|------|------|
-| `ip a` | Verify network interface configuration |
+|---|---|
+| `hostnamectl` | Verify hostname and operating system |
+| `ip a` | Verify network interface and IP configuration |
 | `cat /etc/resolv.conf` | Validate DNS configuration |
-| `ping 192.168.10.10` | Confirm network connectivity |
-| `ping dc01.bpurple.com` | Confirm domain name resolution |
+| `ping 192.168.10.10` | Confirm connectivity with DC01 |
+| `ping dc01.bpurple.com` | Confirm Active Directory DNS resolution |
 
+All validation checks completed successfully.
 
-All checks returned successful results, indicating that the Linux server was correctly configured to communicate with the Active Directory environment.
+The results confirmed that the Linux server could communicate with the Domain Controller and resolve it using its Active Directory hostname.
 
 # Business Impact
 
@@ -337,10 +337,12 @@ In many cases, integration issues are not caused by the domain itself, but by mi
 
 # Conclusion
 
-In this lab, I successfully prepared a Linux server for integration into an Active Directory environment.
+In this lab, I prepared an Ubuntu Server system for integration with an existing Active Directory environment.
 
-I was able to validate network connectivity, configure DNS correctly, and confirm that the server could discover and communicate with the domain controller.
+I configured and verified the Linux server's hostname, IP addressing, DNS configuration, network connectivity, and Active Directory DNS resolution.
 
-With these prerequisites in place, the system is now ready for domain join and centralized authentication using Kerberos and SSSD.
+The validation confirmed that the Linux server could communicate with the Domain Controller and resolve it using its Active Directory hostname.
 
-This setup reflects the real-world process of preparing Linux systems for enterprise identity integration.
+The next stage would be to perform Active Directory discovery and complete the domain join using the realmd and SSSD stack.
+
+The main lesson from this lab was that successful Linux and Active Directory integration starts with getting the fundamentals right — especially networking and DNS.
